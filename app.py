@@ -73,6 +73,7 @@ with tab2:
     st.bar_chart(alloc_df.set_index('Asset Class'))
 
 # Tab 3
+with tab3:
     st.header("Downloadable Savings Report")
 
     df_report = pd.DataFrame({
