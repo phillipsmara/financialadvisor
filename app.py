@@ -24,6 +24,32 @@ rate = {"Low": 0.04, "Medium": 0.06, "High": 0.08}
 
 # Initialize Tabs
 
-tab1, tab2, tab3, tab4 = st.tabs(["Growth Over Time", "Portfolio Suggestions", "Download Report"])
+tab1, tab2, tab3 = st.tabs(["Growth Over Time", "Portfolio Suggestions", "Download Report"])
+
+# Tab 1
+with tab1:
+    st.header("Projected Investment Growth")
+
+    balances = [monthly_saving * (((1 + rate / 12) ** i - 1) / (rate / 12)) for i in range(1, total_months + 1, 12)]
+    years_range = list(range(1, years + 1))
+
+    fig, ax = plt.subplots()
+    ax.plot(years_range, balances, marker='o')
+    ax.set_title("Projected Portfolio Value Over Time")
+    ax.set_xlabel("Years")
+    ax.set_ylabel("Value ($)")
+    st.pyplot(fig)
+
+    future_value = balances[-1] if balances else 0
+
+    st.markdown("### Plan Summary")
+    st.write(f"**Monthly Saving Capacity:** `${monthly_saving:.2f}`")
+    st.write(f"**Estimated Portfolio Value in {years} years:** `${future_value:,.2f}`")
+
+    if future_value >= goal:
+        st.success("🎯 You’re on track to reach your goal!")
+    else:
+        needed = goal - future_value
+        st.warning(f"⚠️ You need to increase your savings or timeline by ~`${needed:,.2f}`.")
 
                                
