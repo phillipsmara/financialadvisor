@@ -30,7 +30,7 @@ tab1, tab2, tab3 = st.tabs(["Growth Over Time", "Portfolio Suggestions", "Downlo
 with tab1:
     st.header("Projected Investment Growth")
 
-    balances = [monthly_savings * (((1 + rate / 12) ** i - 1) / (rate / 12)) for i in range(1, total_months + 1, 12)]
+    balances = [monthly_savings * (((1 + rate[risk] / 12) ** i - 1) / (rate[risk] / 12)) for i in range(1, total_months + 1, 12)]
     years_range = list(range(1, years + 1))
 
     fig, ax = plt.subplots()
