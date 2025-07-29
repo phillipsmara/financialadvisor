@@ -52,4 +52,41 @@ with tab1:
         needed = goal - future_value
         st.warning(f"⚠️ You need to increase your savings or timeline by ~`${needed:,.2f}`.")
 
+# Tab 2
+with tab2:
+    st.header("Recommended Portfolio Allocation")
+
+    if risk == "Low":
+        allocation = {"Stocks": 20, "Bonds": 70, "Cash": 10}
+    elif risk == "Medium":
+        allocation = {"Stocks": 60, "Bonds": 30, "Cash": 10}
+    else:
+        allocation = {"Stocks": 80, "Bonds": 15, "Cash": 5}
+
+    st.write(f"Based on a **{risk}** risk profile, we suggest the following allocation:")
+
+    alloc_df = pd.DataFrame({
+        'Asset Class': list(allocation.keys()),
+        'Allocation (%)': list(allocation.values())
+    })
+
+    st.bar_chart(alloc_df.set_index('Asset Class'))
+
+# Tab 3
+    st.header("Downloadable Savings Report")
+
+    df_report = pd.DataFrame({
+        "Year": years_range,
+        "Projected Portfolio Value ($)": balances
+    })
+
+    st.dataframe(df_report)
+
+    st.download_button(
+        label="📥 Download as CSV",
+        data=df_report.to_csv(index=False),
+        file_name="automated_financial_advisor.csv",
+        mime="text/csv"
+    )
+
                                
