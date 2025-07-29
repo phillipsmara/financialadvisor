@@ -1,11 +1,12 @@
 import streamlit as st
 import numpy as np
 
-st.title("💸 Robo-Advisor: Savings & Investment Planner")
+st.title("Financial Advisor")
+st.markdown("### Input Your Data Below to See If Your Are on Track to Meet Your Financial Goals")
 
 # User Inputs
 goal = st.number_input("Target Amount ($)", min_value=1000)
-years = st.slider("Time Horizon (Years)", 1, 40)
+years = st.slider("Time Frame of Investment (Years)", 1, 40)
 monthly_income = st.number_input("Monthly Income ($)", min_value=0)
 monthly_expenses = st.number_input("Monthly Expenses ($)", min_value=0)
 risk = st.selectbox("Risk Tolerance", ["Low", "Medium", "High"])
