@@ -1,38 +1,26 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
 
-st.title("Financial Advisor")
-st.markdown("### Input Your Data Below to See If Your Are on Track to Meet Your Financial Goals")
+# Page Title and Subheading
 
-# User Inputs
-goal = st.number_input("Target Amount ($)", min_value=1000)
-years = st.slider("Time Frame of Investment (Years)", 1, 40)
-monthly_income = st.number_input("Monthly Income ($)", min_value=0)
-monthly_expenses = st.number_input("Monthly Expenses ($)", min_value=0)
-risk = st.selectbox("Risk Tolerance", ["Low", "Medium", "High"])
+st.title("Automated Financial Advisor")
+st.subheader("Input your Financial Info Into the Sidebar to See your Saving Predictions and Personalized Reccomendations")
 
-# Logic
-monthly_saving = monthly_income - monthly_expenses
+# Sidebar with User Inputs
+
+st.sidebar.header("Your Info")
+goal = st.sidebar.number_input("Savings Target ($)", min_value = 500, value = 20000)
+years = st.sidebar.slider("Time Horizon", 1, 40, value=5)
+monthly_income = st.sidebar.number_input("Monthly Income", min_value = 0, value = 5000)
+monthly_expenses = st.sidebar.number_input("Monthly Expenses", min_value = 0, value = 2000)
+risk = st.sidebar.selectbox("Investment Risk Tolerance", ["Low", "Medium", "High"])
+
+monthly_savings = max(0, monthly_income - monthly_expenses)
 total_months = years * 12
+rate = {"Low": 0.04, "Medium": 0.06, "High": 0.08}
 
-# Estimated return rates
-if risk == "Low":
-    rate = 0.04
-elif risk == "Medium":
-    rate = 0.06
-else:
-    rate = 0.08
 
-# Future Value Calculation (compound interest)
-future_value = monthly_saving * (((1 + rate / 12) ** total_months - 1) / (rate / 12))
-
-# Output
-st.markdown("### 🧾 Plan Summary")
-st.write(f"Monthly Saving Capacity: ${monthly_saving:.2f}")
-st.write(f"Estimated Portfolio Value in {years} years: ${future_value:,.2f}")
-
-if future_value >= goal:
-    st.success("🎯 You’re on track to reach your goal!")
-else:
-    needed = goal - future_value
-    st.warning(f"⚠️ You’ll need to increase your savings or timeline by ~${needed:,.2f}.")
+                               
