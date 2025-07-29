@@ -30,7 +30,7 @@ tab1, tab2, tab3 = st.tabs(["Growth Over Time", "Portfolio Suggestions", "Downlo
 with tab1:
     st.header("Projected Investment Growth")
 
-    balances = [monthly_saving * (((1 + rate / 12) ** i - 1) / (rate / 12)) for i in range(1, total_months + 1, 12)]
+    balances = [monthly_savings * (((1 + rate / 12) ** i - 1) / (rate / 12)) for i in range(1, total_months + 1, 12)]
     years_range = list(range(1, years + 1))
 
     fig, ax = plt.subplots()
@@ -43,7 +43,7 @@ with tab1:
     future_value = balances[-1] if balances else 0
 
     st.markdown("### Plan Summary")
-    st.write(f"**Monthly Saving Capacity:** `${monthly_saving:.2f}`")
+    st.write(f"**Monthly Saving Capacity:** `${monthly_savings:.2f}`")
     st.write(f"**Estimated Portfolio Value in {years} years:** `${future_value:,.2f}`")
 
     if future_value >= goal:
