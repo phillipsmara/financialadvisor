@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
+
 
 # Page Title and Subheading
 
@@ -22,5 +22,8 @@ monthly_savings = max(0, monthly_income - monthly_expenses)
 total_months = years * 12
 rate = {"Low": 0.04, "Medium": 0.06, "High": 0.08}
 
+# Initialize Tabs
+
+tab1, tab2, tab3, tab4 = st.tabs(["Growth Over Time", "Portfolio Suggestions", "Download Report"])
 
                                
